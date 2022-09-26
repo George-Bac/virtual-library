@@ -11,6 +11,7 @@ public class Book {
    private String imageUrl;
    private String shortDescription;
    private String longDescription;
+   private Boolean isExpanded;
 
    public Book(Long id, String title, String author, Integer numberOfPages, String imageUrl, String shortDescription, String longDescription) {
       this.id = id;
@@ -20,6 +21,7 @@ public class Book {
       this.imageUrl = imageUrl;
       this.shortDescription = shortDescription;
       this.longDescription = longDescription;
+      isExpanded = false;
    }
 
    public Long getId() {
@@ -76,6 +78,14 @@ public class Book {
 
    public void setLongDescription(String longDescription) {
       this.longDescription = longDescription;
+   }
+
+   public Boolean getExpanded() {
+      return isExpanded;
+   }
+
+   public void setExpanded(Boolean expanded) {
+      isExpanded = expanded;
    }
 
    @Override

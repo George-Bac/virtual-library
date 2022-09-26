@@ -9,25 +9,88 @@
   app:cardElevation="7dp">
 
   <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="200dp"
+    android:layout_height="wrap_content">
 
-    <ImageView
-      android:id="@+id/bookImageView"
-      android:layout_width="130dp"
-      android:layout_height="150dp"
-      android:src="@mipmap/ic_launcher" />
+    <RelativeLayout
+      android:id="@+id/collapsedRelativeLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-    <TextView
-      android:id="@+id/bookTitleTextView"
-      android:layout_width="wrap_content"
+      <ImageView
+        android:id="@+id/bookImageView"
+        android:layout_width="200dp"
+        android:layout_height="220dp"
+        android:src="@mipmap/ic_launcher" />
+
+      <TextView
+        android:id="@+id/bookTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:text="Book Title"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+      <ImageView
+        android:id="@+id/arrowDownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bookImageView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/ic_arrow_down" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+      android:layout_marginTop="10dp"
+      android:id="@+id/expandedRelativeLayout"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/bookImageView"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="7dp"
-      android:text="Book Title"
-      android:textSize="16sp"
-      android:textStyle="bold" />
+      android:layout_below="@id/collapsedRelativeLayout"
+      android:visibility="gone">
+
+      <TextView
+        android:id="@+id/bookAuthorLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author: " />
+
+      <TextView
+        android:id="@+id/bookAuthorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/bookAuthorLabelTextView"
+        android:text="author_value" />
+
+      <TextView
+        android:id="@+id/bookShortDescriptionLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookAuthorLabelTextView"
+        android:layout_marginTop="7dp"
+        android:text="Short Description: " />
+
+      <TextView
+        android:id="@+id/bookShortDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookShortDescriptionLabelTextView"
+        android:layout_marginTop="7dp"
+        android:text="short_description_value" />
+
+      <ImageView
+        android:id="@+id/arrowUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bookShortDescriptionTextView"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_arrow_up" />
+
+    </RelativeLayout>
 
   </RelativeLayout>
 
