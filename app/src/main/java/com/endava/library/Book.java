@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class Book {
@@ -88,6 +90,7 @@ public class Book {
       isExpanded = expanded;
    }
 
+   @NonNull
    @Override
    public String toString() {
       return "Book{" +

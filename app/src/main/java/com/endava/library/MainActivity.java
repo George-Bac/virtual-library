@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
       BookUtils.getInstance();
       allBooksButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AllBooksActivity.class)));
       currentlyReadingButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, CurrentlyReadingActivity.class)));
+      alreadyReadButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AlreadyReadActivity.class)));
+      wishListButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, WishListActivity.class)));
+      favoritesButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, FavoriteBooksActivity.class)));
    }
 
    private void initViews() {

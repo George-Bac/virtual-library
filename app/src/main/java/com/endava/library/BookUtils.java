@@ -69,4 +69,16 @@ public class BookUtils {
    public boolean addToCurrentlyReading(Book book) {
       return currentlyReadingBooks.add(book);
    }
+
+   public boolean addToAlreadyRead(Book book) {
+      return alreadyReadBooks.add(book);
+   }
+
+   public boolean addToWishList(Book book) {
+      return wishListBooks.add(book);
+   }
+
+   public boolean addToFavorites(Book book) {
+      return favoriteBooks.add(book);
+   }
 }
