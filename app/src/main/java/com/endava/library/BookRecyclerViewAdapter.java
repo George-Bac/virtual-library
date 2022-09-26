@@ -1,6 +1,7 @@
 package com.endava.library;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -34,7 +34,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
    @NonNull
    @Override
    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.book, parent, false));
+      return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item_book, parent, false));
    }
 
    @Override
@@ -45,7 +45,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
       viewHolder.bookShortDescriptionTextView.setText(books.get(position).getShortDescription());
       Glide.with(context).asBitmap().load(books.get(position).getImageUrl()).into(viewHolder.bookImageView);
 
-      viewHolder.parentCardView.setOnClickListener(view -> Toast.makeText(context, books.get(position).getTitle() + " selected", Toast.LENGTH_SHORT).show());
+      viewHolder.parentCardView.setOnClickListener(view -> context.startActivity(new Intent(context, BookActivity.class)));
 
       TransitionManager.beginDelayedTransition(viewHolder.parentCardView);
       viewHolder.expandedRelativeLayout.setVisibility(books.get(position).getExpanded() ? View.VISIBLE : View.GONE);
