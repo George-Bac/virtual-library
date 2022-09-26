@@ -1,6 +1,7 @@
 package com.endava.library;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionManager;
@@ -59,55 +61,72 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
       viewHolder.expandedRelativeLayout.setVisibility(books.get(position).getExpanded() ? View.VISIBLE : View.GONE);
       viewHolder.arrowDownButton.setVisibility(books.get(position).getExpanded() ? View.GONE : View.VISIBLE);
 
-      if(books.get(position).getExpanded()) {
-         switch(parentActivity) {
+      if (books.get(position).getExpanded()) {
+         switch (parentActivity) {
             case "allBooks":
                viewHolder.deleteBookButton.setVisibility(View.GONE);
                break;
             case "currentlyReading":
                viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
                viewHolder.deleteBookButton.setOnClickListener(view -> {
-                 if(BookUtils.getInstance().removeFromCurrentlyReading(books.get(position))) {
-                    Toast.makeText(context, bookTitle + " removed from currently reading", Toast.LENGTH_SHORT).show();
-                    notifyDataSetChanged();
-                 } else {
-                    Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-                 }
+                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from currently reading?");
+                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
+                     if (BookUtils.getInstance().removeFromCurrentlyReading(books.get(position))) {
+                        Toast.makeText(context, bookTitle + " removed from currently reading", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                     }
+                  });
+                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
+                  builder.create().show();
                });
                break;
             case "alreadyRead":
                viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
                viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  if(BookUtils.getInstance().removeFromAlreadyRead(books.get(position))) {
-                     Toast.makeText(context, bookTitle + " removed from already read", Toast.LENGTH_SHORT).show();
-                     notifyDataSetChanged();
-                  } else {
-                     Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-                  }
+                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from already read?");
+                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
+                     if (BookUtils.getInstance().removeFromAlreadyRead(books.get(position))) {
+                        Toast.makeText(context, bookTitle + " removed from already read", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                     }
+                  });
+                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
+                  builder.create().show();
                });
                break;
             case "wishList":
                viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
                viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  if(BookUtils.getInstance().removeFromWishList(books.get(position))) {
-                     Toast.makeText(context, bookTitle + " removed from wish list", Toast.LENGTH_SHORT).show();
-                     notifyDataSetChanged();
-                  } else {
-                     Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-                  }
+                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from wish list?");
+                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
+                     if (BookUtils.getInstance().removeFromWishList(books.get(position))) {
+                        Toast.makeText(context, bookTitle + " removed from wish list", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                     }
+                  });
+                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
+                  builder.create().show();
                });
                break;
             case "favorites":
                viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
                viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  if(BookUtils.getInstance().removeFromFavorites(books.get(position))) {
-                     Toast.makeText(context, bookTitle + " removed from favorites", Toast.LENGTH_SHORT).show();
-                     notifyDataSetChanged();
-                  } else {
-                     Toast.makeText(context, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-                  }
+                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from favorites?");
+                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
+                     if (BookUtils.getInstance().removeFromCurrentlyReading(books.get(position))) {
+                        Toast.makeText(context, bookTitle + " removed from favorites", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                     }
+                  });
+                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
+                  builder.create().show();
                });
                break;
+            default: Toast.makeText(context, "Invalid delete option", Toast.LENGTH_SHORT).show();
          }
       }
    }
