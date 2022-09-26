@@ -1,7 +1,6 @@
 package com.endava.library;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,8 +44,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
    @Override
    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
       Log.d(TAG, "onBindViewHolder: called");
-      String bookTitle = books.get(position).getTitle();
-      viewHolder.bookTitleTextView.setText(bookTitle);
+      viewHolder.bookTitleTextView.setText(books.get(position).getTitle());
       viewHolder.bookAuthorTextView.setText(books.get(position).getAuthor());
       viewHolder.bookShortDescriptionTextView.setText(books.get(position).getShortDescription());
       Glide.with(context).asBitmap().load(books.get(position).getImageUrl()).into(viewHolder.bookImageView);
@@ -63,70 +61,12 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
       if (books.get(position).getExpanded()) {
          switch (parentActivity) {
-            case "allBooks":
-               viewHolder.deleteBookButton.setVisibility(View.GONE);
-               break;
-            case "currentlyReading":
-               viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
-               viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from currently reading?");
-                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
-                     if (BookUtils.getInstance().removeFromCurrentlyReading(books.get(position))) {
-                        Toast.makeText(context, bookTitle + " removed from currently reading", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                     }
-                  });
-                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
-                  builder.create().show();
-               });
-               break;
-            case "alreadyRead":
-               viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
-               viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from already read?");
-                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
-                     if (BookUtils.getInstance().removeFromAlreadyRead(books.get(position))) {
-                        Toast.makeText(context, bookTitle + " removed from already read", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                     }
-                  });
-                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
-                  builder.create().show();
-               });
-               break;
-            case "wishList":
-               viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
-               viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from wish list?");
-                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
-                     if (BookUtils.getInstance().removeFromWishList(books.get(position))) {
-                        Toast.makeText(context, bookTitle + " removed from wish list", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                     }
-                  });
-                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
-                  builder.create().show();
-               });
-               break;
-            case "favorites":
-               viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
-               viewHolder.deleteBookButton.setOnClickListener(view -> {
-                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                  builder.setMessage("Are you sure you want to delete " + bookTitle + "from favorites?");
-                  builder.setPositiveButton("Yes", (dialogInterface, which) -> {
-                     if (BookUtils.getInstance().removeFromCurrentlyReading(books.get(position))) {
-                        Toast.makeText(context, bookTitle + " removed from favorites", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                     }
-                  });
-                  builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
-                  builder.create().show();
-               });
-               break;
-            default: Toast.makeText(context, "Invalid delete option", Toast.LENGTH_SHORT).show();
+            case "allBooks": viewHolder.deleteBookButton.setVisibility(View.GONE); break;
+            case "currentlyReading": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getCurrentlyReadingBooks(), "currently reading"); break;
+            case "alreadyRead": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getAlreadyReadBooks(), "already read"); break;
+            case "wishList": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getWishListBooks(), "wish list"); break;
+            case "favorites": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getFavoriteBooks(), "favorites"); break;
+            default: Toast.makeText(context, "Invalid category", Toast.LENGTH_SHORT).show();
          }
       }
    }
@@ -134,6 +74,22 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
    @Override
    public int getItemCount() {
       return books.size();
+   }
+
+   private void handleRemoveBookFromCategory(@NonNull ViewHolder viewHolder, Book book, List<Book> booksCategory, String category) {
+      viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
+      viewHolder.deleteBookButton.setOnClickListener(view -> {
+         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+         builder.setMessage("Are you sure you want to delete " + book.getTitle() + " from " + category + "?");
+         builder.setPositiveButton("Yes", (dialogInterface, which) -> {
+            if (BookUtils.getInstance().removeFromCategory(book, booksCategory)) {
+               Toast.makeText(context, book.getTitle() + " removed from " + category, Toast.LENGTH_SHORT).show();
+               notifyDataSetChanged();
+            }
+         });
+         builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
+         builder.create().show();
+      });
    }
 
    public void setBooks(List<Book> books) {
