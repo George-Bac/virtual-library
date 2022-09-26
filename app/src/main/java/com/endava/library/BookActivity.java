@@ -33,10 +33,12 @@ public class BookActivity extends AppCompatActivity {
             Book incomingBook = BookUtils.getInstance().getBookById(bookId);
             if (incomingBook != null) {
                setBookData(incomingBook);
-               handleAddToCurrentlyReading(incomingBook);
-               handleAddToAlreadyRead(incomingBook);
-               handleAddToWishList(incomingBook);
-               handleAddToFavorites(incomingBook);
+               List<List<Book>> booksCategories = List.of(BookUtils.getCurrentlyReadingBooks(), BookUtils.getAlreadyReadBooks(), BookUtils.getWishListBooks(), BookUtils.getFavoriteBooks());
+               List<Button> addToCategoryButtons = List.of(addToCurrentlyReadingButton, addToAlreadyReadButton, addToWishListButton, addToFavoritesButton);
+               List<Class<? extends AppCompatActivity>> categoriesActivities = List.of(CurrentlyReadingActivity.class, AlreadyReadActivity.class, WishListActivity.class, FavoriteBooksActivity.class);
+               List<String> categoriesNames = List.of("currently reading", "already read", "wish list", "favorites");
+               for (int i = 0; i < booksCategories.size(); i++)
+                  handleAddBookToCategory(incomingBook, booksCategories.get(i), addToCategoryButtons.get(i), categoriesActivities.get(i), categoriesNames.get(i));
             }
          }
       }
@@ -63,59 +65,14 @@ public class BookActivity extends AppCompatActivity {
       itemBookLongDescriptionTextView.setText(book.getLongDescription());
    }
 
-   private void handleAddToCurrentlyReading(Book incomingBook) {
-      if (bookExistsInCategory(incomingBook, BookUtils.getCurrentlyReadingBooks())) {
-         addToCurrentlyReadingButton.setEnabled(false);
+   private void handleAddBookToCategory(Book incomingBook, List<Book> booksCategory, Button addToCategoryButton, Class<? extends AppCompatActivity> categoryActivity, String categoryName) {
+      if (bookExistsInCategory(incomingBook, booksCategory)) {
+         addToCategoryButton.setEnabled(false);
       } else {
-         addToCurrentlyReadingButton.setOnClickListener(view -> {
-            if (BookUtils.getInstance().addToCurrentlyReading(incomingBook)) {
-               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to currently reading", Toast.LENGTH_SHORT).show();
-               startActivity(new Intent(BookActivity.this, CurrentlyReadingActivity.class));
-            } else {
-               Toast.makeText(BookActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-            }
-         });
-      }
-   }
-
-   private void handleAddToAlreadyRead(Book incomingBook) {
-      if (bookExistsInCategory(incomingBook, BookUtils.getAlreadyReadBooks())) {
-         addToAlreadyReadButton.setEnabled(false);
-      } else {
-         addToAlreadyReadButton.setOnClickListener(view -> {
-            if (BookUtils.getInstance().addToAlreadyRead(incomingBook)) {
-               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to already read", Toast.LENGTH_SHORT).show();
-               startActivity(new Intent(BookActivity.this, AlreadyReadActivity.class));
-            } else {
-               Toast.makeText(BookActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-            }
-         });
-      }
-   }
-
-   private void handleAddToWishList(Book incomingBook) {
-      if (bookExistsInCategory(incomingBook, BookUtils.getWishListBooks())) {
-         addToWishListButton.setEnabled(false);
-      } else {
-         addToWishListButton.setOnClickListener(view -> {
-            if (BookUtils.getInstance().addToWishList(incomingBook)) {
-               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to wish list", Toast.LENGTH_SHORT).show();
-               startActivity(new Intent(BookActivity.this, WishListActivity.class));
-            } else {
-               Toast.makeText(BookActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-            }
-         });
-      }
-   }
-
-   private void handleAddToFavorites(Book incomingBook) {
-      if (bookExistsInCategory(incomingBook, BookUtils.getFavoriteBooks())) {
-         addToFavoritesButton.setEnabled(false);
-      } else {
-         addToFavoritesButton.setOnClickListener(view -> {
-            if (BookUtils.getInstance().addToFavorites(incomingBook)) {
-               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to favorites", Toast.LENGTH_SHORT).show();
-               startActivity(new Intent(BookActivity.this, FavoriteBooksActivity.class));
+         addToCategoryButton.setOnClickListener(view -> {
+            if (BookUtils.getInstance().addToCategory(incomingBook, booksCategory)) {
+               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to " + categoryName, Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(BookActivity.this, categoryActivity));
             } else {
                Toast.makeText(BookActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
             }
