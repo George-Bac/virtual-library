@@ -69,4 +69,20 @@ public class BookUtils {
    public boolean addToCategory(Book book, List<Book> books) {
       return books.add(book);
    }
+
+   public boolean removeFromCurrentlyReading(Book book) {
+      return currentlyReadingBooks.remove(book);
+   }
+
+   public boolean removeFromAlreadyRead(Book book) {
+      return alreadyReadBooks.remove(book);
+   }
+
+   public boolean removeFromWishList(Book book) {
+      return wishListBooks.remove(book);
+   }
+
+   public boolean removeFromFavorites(Book book) {
+      return favoriteBooks.remove(book);
+   }
 }

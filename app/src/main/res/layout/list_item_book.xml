@@ -46,11 +46,11 @@
     </RelativeLayout>
 
     <RelativeLayout
-      android:layout_marginTop="10dp"
       android:id="@+id/expandedRelativeLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/collapsedRelativeLayout"
+      android:layout_marginTop="10dp"
       android:visibility="gone">
 
       <TextView
@@ -89,6 +89,17 @@
         android:layout_below="@+id/bookShortDescriptionTextView"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_arrow_up" />
+
+      <TextView
+        android:id="@+id/deleteBookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bookShortDescriptionTextView"
+        android:layout_marginEnd="7dp"
+        android:layout_toStartOf="@+id/arrowUpButton"
+        android:text="Delete"
+        android:textColor="@color/red"
+        android:visibility="gone" />
 
     </RelativeLayout>
 

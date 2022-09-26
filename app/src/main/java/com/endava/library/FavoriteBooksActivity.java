@@ -18,7 +18,7 @@ public class FavoriteBooksActivity extends AppCompatActivity {
       setContentView(R.layout.activity_favorite_books);
 
       favoriteBooksRecyclerView = findViewById(R.id.favoriteBooksRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this);
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "favorites");
 
       bookRecyclerViewAdapter.setBooks(BookUtils.getFavoriteBooks());
       favoriteBooksRecyclerView.setAdapter(bookRecyclerViewAdapter);
