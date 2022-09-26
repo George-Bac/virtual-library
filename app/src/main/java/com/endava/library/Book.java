@@ -5,16 +5,16 @@ import java.util.Objects;
 public class Book {
 
    private Long id;
-   private String name;
+   private String title;
    private String author;
    private Integer numberOfPages;
    private String imageUrl;
    private String shortDescription;
    private String longDescription;
 
-   public Book(Long id, String name, String author, Integer numberOfPages, String imageUrl, String shortDescription, String longDescription) {
+   public Book(Long id, String title, String author, Integer numberOfPages, String imageUrl, String shortDescription, String longDescription) {
       this.id = id;
-      this.name = name;
+      this.title = title;
       this.author = author;
       this.numberOfPages = numberOfPages;
       this.imageUrl = imageUrl;
@@ -30,12 +30,12 @@ public class Book {
       this.id = id;
    }
 
-   public String getName() {
-      return name;
+   public String getTitle() {
+      return title;
    }
 
-   public void setName(String name) {
-      this.name = name;
+   public void setTitle(String title) {
+      this.title = title;
    }
 
    public String getAuthor() {
@@ -82,7 +82,7 @@ public class Book {
    public String toString() {
       return "Book{" +
             "id=" + id +
-            ", name='" + name + '\'' +
+            ", title='" + title + '\'' +
             ", author='" + author + '\'' +
             ", numberOfPages=" + numberOfPages +
             ", imageUrl='" + imageUrl + '\'' +
@@ -97,7 +97,7 @@ public class Book {
       if (o == null || getClass() != o.getClass()) return false;
       Book book = (Book) o;
       return id.equals(book.id) &&
-            name.equals(book.name) &&
+            title.equals(book.title) &&
             author.equals(book.author) &&
             numberOfPages.equals(book.numberOfPages) &&
             imageUrl.equals(book.imageUrl) &&
@@ -107,6 +107,6 @@ public class Book {
 
    @Override
    public int hashCode() {
-      return Objects.hash(id, name, author, numberOfPages, imageUrl, shortDescription, longDescription);
+      return Objects.hash(id, title, author, numberOfPages, imageUrl, shortDescription, longDescription);
    }
 }
