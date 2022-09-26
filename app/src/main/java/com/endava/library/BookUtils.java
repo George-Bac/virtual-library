@@ -60,9 +60,13 @@ public class BookUtils {
    }
 
    public Book getBookById(Long bookId) {
-      for(Book book : allBooks) {
-         if(Objects.equals(book.getId(), bookId)) return book;
+      for (Book book : allBooks) {
+         if (Objects.equals(book.getId(), bookId)) return book;
       }
       return null;
+   }
+
+   public boolean addToCurrentlyReading(Book book) {
+      return currentlyReadingBooks.add(book);
    }
 }
