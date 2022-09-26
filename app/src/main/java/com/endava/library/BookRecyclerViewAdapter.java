@@ -45,7 +45,11 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
       viewHolder.bookShortDescriptionTextView.setText(books.get(position).getShortDescription());
       Glide.with(context).asBitmap().load(books.get(position).getImageUrl()).into(viewHolder.bookImageView);
 
-      viewHolder.parentCardView.setOnClickListener(view -> context.startActivity(new Intent(context, BookActivity.class)));
+      viewHolder.parentCardView.setOnClickListener(view -> {
+         Intent intent = new Intent(context, BookActivity.class);
+         intent.putExtra("bookId", books.get(position).getId());
+         context.startActivity(intent);
+      });
 
       TransitionManager.beginDelayedTransition(viewHolder.parentCardView);
       viewHolder.expandedRelativeLayout.setVisibility(books.get(position).getExpanded() ? View.VISIBLE : View.GONE);

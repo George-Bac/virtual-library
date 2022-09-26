@@ -2,6 +2,7 @@ package com.endava.library;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BookUtils {
 
@@ -56,5 +57,12 @@ public class BookUtils {
 
    public static List<Book> getFavoriteBooks() {
       return favoriteBooks;
+   }
+
+   public Book getBookById(Long bookId) {
+      for(Book book : allBooks) {
+         if(Objects.equals(book.getId(), bookId)) return book;
+      }
+      return null;
    }
 }
