@@ -23,6 +23,7 @@
     </activity>
     <activity
       android:name=".FavoriteBooksActivity"
+      android:label="@string/activity_favorite_books"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
@@ -30,6 +31,7 @@
     </activity>
     <activity
       android:name=".WishListActivity"
+      android:label="@string/activity_wish_list"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
@@ -37,6 +39,7 @@
     </activity>
     <activity
       android:name=".AlreadyReadActivity"
+      android:label="@string/activity_already_read"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
@@ -44,6 +47,7 @@
     </activity>
     <activity
       android:name=".CurrentlyReadingActivity"
+      android:label="@string/activity_currently_reading"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
@@ -51,6 +55,7 @@
     </activity>
     <activity
       android:name=".BookActivity"
+      android:label="@string/activity_book"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
@@ -58,6 +63,7 @@
     </activity>
     <activity
       android:name=".AllBooksActivity"
+      android:label="@string/activity_all_books"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
