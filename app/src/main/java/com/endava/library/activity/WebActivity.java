@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.activity;
 
 import static com.endava.library.Constants.ABOUT_PAGE_URL;
 
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.endava.library.R;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.model;
 
 import androidx.annotation.NonNull;
 

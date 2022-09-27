@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.utils;
 
 import static com.endava.library.Constants.ALL_BOOKS_KEY;
 import static com.endava.library.Constants.ALREADY_READ_BOOKS_KEY;
@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 
+import com.endava.library.model.Book;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

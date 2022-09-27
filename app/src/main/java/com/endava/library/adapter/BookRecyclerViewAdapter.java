@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.adapter;
 
 import static com.endava.library.Constants.*;
 
@@ -20,6 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionManager;
 
 import com.bumptech.glide.Glide;
+import com.endava.library.utils.BookUtils;
+import com.endava.library.R;
+import com.endava.library.activity.BookActivity;
+import com.endava.library.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;

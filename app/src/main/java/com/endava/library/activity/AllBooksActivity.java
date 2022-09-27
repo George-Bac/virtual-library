@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.activity;
 
 import static com.endava.library.Constants.ALL_BOOKS_KEY;
 
@@ -9,6 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.endava.library.adapter.BookRecyclerViewAdapter;
+import com.endava.library.utils.BookUtils;
+import com.endava.library.R;
 
 import java.util.Objects;
 

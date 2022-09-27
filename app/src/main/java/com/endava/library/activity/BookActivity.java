@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.activity;
 
 import static com.endava.library.Constants.*;
 
@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.endava.library.model.Book;
+import com.endava.library.utils.BookUtils;
+import com.endava.library.R;
 
 import java.util.List;
 import java.util.Objects;

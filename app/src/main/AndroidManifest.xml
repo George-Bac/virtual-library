@@ -15,14 +15,14 @@
     android:theme="@style/Theme.VirtualLibrary"
     tools:targetApi="31">
     <activity
-      android:name=".WebActivity"
+      android:name=".activity.WebActivity"
       android:exported="false">
       <meta-data
         android:name="android.app.lib_name"
         android:value="" />
     </activity>
     <activity
-      android:name=".FavoriteBooksActivity"
+      android:name=".activity.FavoriteBooksActivity"
       android:label="@string/activity_favorite_books"
       android:exported="false">
       <meta-data
@@ -30,7 +30,7 @@
         android:value="" />
     </activity>
     <activity
-      android:name=".WishListActivity"
+      android:name=".activity.WishListActivity"
       android:label="@string/activity_wish_list"
       android:exported="false">
       <meta-data
@@ -38,7 +38,7 @@
         android:value="" />
     </activity>
     <activity
-      android:name=".AlreadyReadActivity"
+      android:name=".activity.AlreadyReadActivity"
       android:label="@string/activity_already_read"
       android:exported="false">
       <meta-data
@@ -46,7 +46,7 @@
         android:value="" />
     </activity>
     <activity
-      android:name=".CurrentlyReadingActivity"
+      android:name=".activity.CurrentlyReadingActivity"
       android:label="@string/activity_currently_reading"
       android:exported="false">
       <meta-data
@@ -54,7 +54,7 @@
         android:value="" />
     </activity>
     <activity
-      android:name=".BookActivity"
+      android:name=".activity.BookActivity"
       android:label="@string/activity_book"
       android:exported="false">
       <meta-data
@@ -62,7 +62,7 @@
         android:value="" />
     </activity>
     <activity
-      android:name=".AllBooksActivity"
+      android:name=".activity.AllBooksActivity"
       android:label="@string/activity_all_books"
       android:exported="false">
       <meta-data
@@ -70,7 +70,7 @@
         android:value="" />
     </activity>
     <activity
-      android:name=".MainActivity"
+      android:name=".activity.MainActivity"
       android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

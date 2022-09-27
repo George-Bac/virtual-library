@@ -1,4 +1,4 @@
-package com.endava.library;
+package com.endava.library.activity;
 
 import static com.endava.library.Constants.ABOUT_PAGE_URL;
 
@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.endava.library.utils.BookUtils;
+import com.endava.library.R;
 
 public class MainActivity extends AppCompatActivity {
 

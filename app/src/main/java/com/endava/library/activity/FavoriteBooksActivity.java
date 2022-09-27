@@ -1,6 +1,6 @@
-package com.endava.library;
+package com.endava.library.activity;
 
-import static com.endava.library.Constants.CURRENTLY_READING_BOOKS_KEY;
+import static com.endava.library.Constants.FAVORITE_BOOKS_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,25 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.endava.library.adapter.BookRecyclerViewAdapter;
+import com.endava.library.utils.BookUtils;
+import com.endava.library.R;
+
 import java.util.Objects;
 
-public class CurrentlyReadingActivity extends AppCompatActivity {
+public class FavoriteBooksActivity extends AppCompatActivity {
 
-   private RecyclerView currentlyReadingRecyclerView;
+   private RecyclerView favoriteBooksRecyclerView;
    private BookRecyclerViewAdapter bookRecyclerViewAdapter;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_currently_reading);
+      setContentView(R.layout.activity_favorite_books);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-      currentlyReadingRecyclerView = findViewById(R.id.currentlyReadingRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, CURRENTLY_READING_BOOKS_KEY);
+      favoriteBooksRecyclerView = findViewById(R.id.favoriteBooksRecyclerView);
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, FAVORITE_BOOKS_KEY);
 
-      bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getCurrentlyReadingBooks());
-      currentlyReadingRecyclerView.setAdapter(bookRecyclerViewAdapter);
-      currentlyReadingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+      bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getFavoriteBooks());
+      favoriteBooksRecyclerView.setAdapter(bookRecyclerViewAdapter);
+      favoriteBooksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
    }
 
    @Override
