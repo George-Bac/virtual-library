@@ -2,11 +2,13 @@ package com.endava.library;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ public class BookActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_book);
+      Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
       initViews();
 
       Intent intent = getIntent();
@@ -85,5 +88,11 @@ public class BookActivity extends AppCompatActivity {
          if (Objects.equals(book.getId(), incomingBook.getId())) return true;
       }
       return false;
+   }
+
+   @Override
+   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+      if (item.getItemId() == android.R.id.home) onBackPressed();
+      return super.onOptionsItemSelected(item);
    }
 }
