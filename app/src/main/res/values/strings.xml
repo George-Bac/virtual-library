@@ -1,3 +1,9 @@
 <resources>
   <string name="app_name">Virtual Library</string>
+  <string name="activity_all_books">All Books</string>
+  <string name="activity_book">Book Details</string>
+  <string name="activity_currently_reading">Currently Reading Books</string>
+  <string name="activity_already_read">Already Read Book</string>
+  <string name="activity_wish_list">Wish List Book</string>
+  <string name="activity_favorite_books">Favorite Books</string>
 </resources>

@@ -6,13 +6,102 @@
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello World!"
-    app:layout_constraintBottom_toBottomOf="parent"
+  <ImageView
+    android:id="@+id/appLogoImageView"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_marginTop="50dp"
+    android:src="@mipmap/app_logo"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/appNameTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:fontFamily="@font/lemon"
+    android:text="Virtual Library"
+    android:textSize="18sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/appLogoImageView" />
+
+  <Button
+    android:id="@+id/allBooksButton"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:text="See All Books"
+    android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/appNameTextView" />
+
+  <Button
+    android:id="@+id/currentlyReadingButton"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="Currently Reading Books"
+    android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/allBooksButton" />
+
+  <Button
+    android:id="@+id/alreadyReadButton"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="Already Read Books"
+    android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/currentlyReadingButton" />
+
+  <Button
+    android:id="@+id/wishListButton"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="See Your Wishlist"
+    android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/alreadyReadButton" />
+
+  <Button
+    android:id="@+id/favoritesButton"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="See Your Favorites"
+    android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/wishListButton" />
+
+  <Button
+    android:id="@+id/aboutButton"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="About"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/favoritesButton" />
+
+  <TextView
+    android:id="@+id/developedByTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:text="Developed by George Bacalu"
+    android:textStyle="italic"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
