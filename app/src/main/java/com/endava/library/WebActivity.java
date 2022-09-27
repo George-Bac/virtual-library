@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import static com.endava.library.Constants.ABOUT_PAGE_URL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +25,7 @@ public class WebActivity extends AppCompatActivity {
 
       Intent intent = getIntent();
       if(intent != null) {
-         String url = intent.getStringExtra("url");
+         String url = intent.getStringExtra(ABOUT_PAGE_URL);
          webView = findViewById(R.id.webView);
          webView.loadUrl(url);
          webView.setWebViewClient(new WebViewClient());

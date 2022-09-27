@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import static com.endava.library.Constants.WISH_LIST_BOOKS_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,7 +25,7 @@ public class WishListActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       wishListRecyclerView = findViewById(R.id.wishListRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "wish_list_books");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, WISH_LIST_BOOKS_KEY);
 
       bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getWishListBooks());
       wishListRecyclerView.setAdapter(bookRecyclerViewAdapter);

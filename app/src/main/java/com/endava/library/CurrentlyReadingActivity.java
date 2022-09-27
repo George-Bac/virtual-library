@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import static com.endava.library.Constants.CURRENTLY_READING_BOOKS_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,7 +25,7 @@ public class CurrentlyReadingActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       currentlyReadingRecyclerView = findViewById(R.id.currentlyReadingRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "currently_reading_books");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, CURRENTLY_READING_BOOKS_KEY);
 
       bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getCurrentlyReadingBooks());
       currentlyReadingRecyclerView.setAdapter(bookRecyclerViewAdapter);

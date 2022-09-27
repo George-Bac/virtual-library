@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import static com.endava.library.Constants.*;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -51,7 +53,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
       viewHolder.parentCardView.setOnClickListener(view -> {
          Intent intent = new Intent(context, BookActivity.class);
-         intent.putExtra("bookId", books.get(position).getId());
+         intent.putExtra(BOOK_ID, books.get(position).getId());
          context.startActivity(intent);
       });
 
@@ -61,11 +63,11 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
       if (books.get(position).getExpanded()) {
          switch (parentActivity) {
-            case "allBooks": viewHolder.deleteBookButton.setVisibility(View.GONE); break;
-            case "currently_reading_books": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getCurrentlyReadingBooks(), "currently reading", "currently_reading_books"); break;
-            case "already_read_books": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getAlreadyReadBooks(), "already read", "already_read_books"); break;
-            case "wish_list_books": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getWishListBooks(), "wish list", "wish_list_books"); break;
-            case "favorite_books": handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getFavoriteBooks(), "favorites", "favorite_books"); break;
+            case ALL_BOOKS_KEY: viewHolder.deleteBookButton.setVisibility(View.GONE); break;
+            case CURRENTLY_READING_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getCurrentlyReadingBooks(), CURRENTLY_READING_BOOKS_CATEGORY, CURRENTLY_READING_BOOKS_KEY); break;
+            case ALREADY_READ_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getAlreadyReadBooks(), ALREADY_READ_BOOKS_CATEGORY, ALREADY_READ_BOOKS_KEY); break;
+            case WISH_LIST_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getWishListBooks(), WISH_LIST_BOOKS_CATEGORY, WISH_LIST_BOOKS_KEY); break;
+            case FAVORITE_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getFavoriteBooks(), FAVORITE_BOOKS_CATEGORY, FAVORITE_BOOKS_KEY); break;
             default: Toast.makeText(context, "Invalid category", Toast.LENGTH_SHORT).show();
          }
       }

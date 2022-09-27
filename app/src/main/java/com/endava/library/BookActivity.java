@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import static com.endava.library.Constants.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,16 +33,17 @@ public class BookActivity extends AppCompatActivity {
 
       Intent intent = getIntent();
       if (intent != null) {
-         long bookId = intent.getLongExtra("bookId", -1);
+         long bookId = intent.getLongExtra(BOOK_ID, -1);
          if (bookId != -1) {
             Book incomingBook = BookUtils.getInstance(this).getBookById(bookId);
             if (incomingBook != null) {
                setBookData(incomingBook);
-               List<List<Book>> booksCategories = List.of(BookUtils.getInstance(this).getCurrentlyReadingBooks(), BookUtils.getInstance(this).getAlreadyReadBooks(), BookUtils.getInstance(this).getWishListBooks(), BookUtils.getInstance(this).getFavoriteBooks());
+               List<List<Book>> booksCategories = List.of(BookUtils.getInstance(this).getCurrentlyReadingBooks(), BookUtils.getInstance(this).getAlreadyReadBooks(),
+                     BookUtils.getInstance(this).getWishListBooks(), BookUtils.getInstance(this).getFavoriteBooks());
                List<Button> addToCategoryButtons = List.of(addToCurrentlyReadingButton, addToAlreadyReadButton, addToWishListButton, addToFavoritesButton);
                List<Class<? extends AppCompatActivity>> categoriesActivities = List.of(CurrentlyReadingActivity.class, AlreadyReadActivity.class, WishListActivity.class, FavoriteBooksActivity.class);
-               List<String> categoriesNames = List.of("currently reading", "already read", "wish list", "favorites");
-               List<String> categoriesKeys = List.of("currently_reading_books", "already_read_books", "wish_list_books", "favorite_books");
+               List<String> categoriesNames = List.of(CURRENTLY_READING_BOOKS_CATEGORY, ALREADY_READ_BOOKS_CATEGORY, WISH_LIST_BOOKS_CATEGORY, FAVORITE_BOOKS_CATEGORY);
+               List<String> categoriesKeys = List.of(CURRENTLY_READING_BOOKS_KEY, ALREADY_READ_BOOKS_KEY, WISH_LIST_BOOKS_KEY, FAVORITE_BOOKS_KEY);
                for (int i = 0; i < booksCategories.size(); i++)
                   handleAddBookToCategory(incomingBook, booksCategories.get(i), addToCategoryButtons.get(i), categoriesActivities.get(i), categoriesNames.get(i), categoriesKeys.get(i));
             }
@@ -78,7 +81,7 @@ public class BookActivity extends AppCompatActivity {
                Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to " + categoryName, Toast.LENGTH_SHORT).show();
                startActivity(new Intent(BookActivity.this, categoryActivity));
             } else {
-               Toast.makeText(BookActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
+               Toast.makeText(BookActivity.this, ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
             }
          });
       }

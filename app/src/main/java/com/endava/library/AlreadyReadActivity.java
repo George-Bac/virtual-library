@@ -1,13 +1,15 @@
 package com.endava.library;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.endava.library.Constants.ALREADY_READ_BOOKS_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ public class AlreadyReadActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       alreadyReadRecyclerView = findViewById(R.id.alreadyReadRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "already_read_books");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, ALREADY_READ_BOOKS_KEY);
 
       bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getAlreadyReadBooks());
       alreadyReadRecyclerView.setAdapter(bookRecyclerViewAdapter);

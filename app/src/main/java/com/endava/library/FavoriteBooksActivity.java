@@ -1,13 +1,15 @@
 package com.endava.library;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.endava.library.Constants.FAVORITE_BOOKS_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ public class FavoriteBooksActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       favoriteBooksRecyclerView = findViewById(R.id.favoriteBooksRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "favorite_books");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, FAVORITE_BOOKS_KEY);
 
       bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getFavoriteBooks());
       favoriteBooksRecyclerView.setAdapter(bookRecyclerViewAdapter);

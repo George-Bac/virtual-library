@@ -1,5 +1,7 @@
 package com.endava.library;
 
+import static com.endava.library.Constants.ABOUT_PAGE_URL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
          builder.setMessage("Developed by George Bacalu");
          builder.setPositiveButton("Visit", (dialogInterface, which) -> {
             Intent intent = new Intent(MainActivity.this, WebActivity.class);
-            intent.putExtra("url", "https://www.google.com/");
+            intent.putExtra(ABOUT_PAGE_URL, "https://www.google.com/");
             startActivity(intent);
          });
          builder.setNegativeButton("Dismiss", (dialogInterface, which) -> Toast.makeText(MainActivity.this, "Dialog dismissed", Toast.LENGTH_SHORT).show());
