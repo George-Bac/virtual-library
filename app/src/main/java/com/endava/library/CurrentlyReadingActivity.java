@@ -23,9 +23,9 @@ public class CurrentlyReadingActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       currentlyReadingRecyclerView = findViewById(R.id.currentlyReadingRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "currentlyReading");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "currently_reading_books");
 
-      bookRecyclerViewAdapter.setBooks(BookUtils.getCurrentlyReadingBooks());
+      bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getCurrentlyReadingBooks());
       currentlyReadingRecyclerView.setAdapter(bookRecyclerViewAdapter);
       currentlyReadingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
    }

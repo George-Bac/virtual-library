@@ -23,9 +23,9 @@ public class FavoriteBooksActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       favoriteBooksRecyclerView = findViewById(R.id.favoriteBooksRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "favorites");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "favorite_books");
 
-      bookRecyclerViewAdapter.setBooks(BookUtils.getFavoriteBooks());
+      bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getFavoriteBooks());
       favoriteBooksRecyclerView.setAdapter(bookRecyclerViewAdapter);
       favoriteBooksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
    }

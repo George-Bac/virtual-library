@@ -33,15 +33,16 @@ public class BookActivity extends AppCompatActivity {
       if (intent != null) {
          long bookId = intent.getLongExtra("bookId", -1);
          if (bookId != -1) {
-            Book incomingBook = BookUtils.getInstance().getBookById(bookId);
+            Book incomingBook = BookUtils.getInstance(this).getBookById(bookId);
             if (incomingBook != null) {
                setBookData(incomingBook);
-               List<List<Book>> booksCategories = List.of(BookUtils.getCurrentlyReadingBooks(), BookUtils.getAlreadyReadBooks(), BookUtils.getWishListBooks(), BookUtils.getFavoriteBooks());
+               List<List<Book>> booksCategories = List.of(BookUtils.getInstance(this).getCurrentlyReadingBooks(), BookUtils.getInstance(this).getAlreadyReadBooks(), BookUtils.getInstance(this).getWishListBooks(), BookUtils.getInstance(this).getFavoriteBooks());
                List<Button> addToCategoryButtons = List.of(addToCurrentlyReadingButton, addToAlreadyReadButton, addToWishListButton, addToFavoritesButton);
                List<Class<? extends AppCompatActivity>> categoriesActivities = List.of(CurrentlyReadingActivity.class, AlreadyReadActivity.class, WishListActivity.class, FavoriteBooksActivity.class);
                List<String> categoriesNames = List.of("currently reading", "already read", "wish list", "favorites");
+               List<String> categoriesKeys = List.of("currently_reading_books", "already_read_books", "wish_list_books", "favorite_books");
                for (int i = 0; i < booksCategories.size(); i++)
-                  handleAddBookToCategory(incomingBook, booksCategories.get(i), addToCategoryButtons.get(i), categoriesActivities.get(i), categoriesNames.get(i));
+                  handleAddBookToCategory(incomingBook, booksCategories.get(i), addToCategoryButtons.get(i), categoriesActivities.get(i), categoriesNames.get(i), categoriesKeys.get(i));
             }
          }
       }
@@ -68,12 +69,12 @@ public class BookActivity extends AppCompatActivity {
       itemBookLongDescriptionTextView.setText(book.getLongDescription());
    }
 
-   private void handleAddBookToCategory(Book incomingBook, List<Book> booksCategory, Button addToCategoryButton, Class<? extends AppCompatActivity> categoryActivity, String categoryName) {
+   private void handleAddBookToCategory(Book incomingBook, List<Book> booksCategory, Button addToCategoryButton, Class<? extends AppCompatActivity> categoryActivity, String categoryName, String categoryKey) {
       if (bookExistsInCategory(incomingBook, booksCategory)) {
          addToCategoryButton.setEnabled(false);
       } else {
          addToCategoryButton.setOnClickListener(view -> {
-            if (BookUtils.getInstance().addToCategory(incomingBook, booksCategory)) {
+            if (BookUtils.getInstance(BookActivity.this).addToCategory(incomingBook, booksCategory, categoryKey)) {
                Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to " + categoryName, Toast.LENGTH_SHORT).show();
                startActivity(new Intent(BookActivity.this, categoryActivity));
             } else {

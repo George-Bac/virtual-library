@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
       setContentView(R.layout.activity_main);
       initViews();
 
-      BookUtils.getInstance();
+      BookUtils.getInstance(this);
       allBooksButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AllBooksActivity.class)));
       currentlyReadingButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, CurrentlyReadingActivity.class)));
       alreadyReadButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AlreadyReadActivity.class)));

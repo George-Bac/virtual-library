@@ -23,9 +23,9 @@ public class WishListActivity extends AppCompatActivity {
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       wishListRecyclerView = findViewById(R.id.wishListRecyclerView);
-      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "wishList");
+      bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, "wish_list_books");
 
-      bookRecyclerViewAdapter.setBooks(BookUtils.getWishListBooks());
+      bookRecyclerViewAdapter.setBooks(BookUtils.getInstance(this).getWishListBooks());
       wishListRecyclerView.setAdapter(bookRecyclerViewAdapter);
       wishListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
    }
