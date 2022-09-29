@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.endava.library.model.Book;
+import com.endava.library.model.BookAddition;
 import com.endava.library.utils.BookUtils;
 import com.endava.library.R;
 
@@ -38,17 +39,17 @@ public class BookActivity extends AppCompatActivity {
       if (intent != null) {
          long bookId = intent.getLongExtra(BOOK_ID, -1);
          if (bookId != -1) {
-            Book incomingBook = BookUtils.getInstance(this).getBookById(bookId);
+            BookUtils instance = BookUtils.getInstance(this);
+            Book incomingBook = instance.getBookById(bookId);
             if (incomingBook != null) {
                setBookData(incomingBook);
-               List<List<Book>> booksCategories = List.of(BookUtils.getInstance(this).getCurrentlyReadingBooks(), BookUtils.getInstance(this).getAlreadyReadBooks(),
-                     BookUtils.getInstance(this).getWishListBooks(), BookUtils.getInstance(this).getFavoriteBooks());
-               List<Button> addToCategoryButtons = List.of(addToCurrentlyReadingButton, addToAlreadyReadButton, addToWishListButton, addToFavoritesButton);
-               List<Class<? extends AppCompatActivity>> categoriesActivities = List.of(CurrentlyReadingActivity.class, AlreadyReadActivity.class, WishListActivity.class, FavoriteBooksActivity.class);
-               List<String> categoriesNames = List.of(CURRENTLY_READING_BOOKS_CATEGORY, ALREADY_READ_BOOKS_CATEGORY, WISH_LIST_BOOKS_CATEGORY, FAVORITE_BOOKS_CATEGORY);
-               List<String> categoriesKeys = List.of(CURRENTLY_READING_BOOKS_KEY, ALREADY_READ_BOOKS_KEY, WISH_LIST_BOOKS_KEY, FAVORITE_BOOKS_KEY);
-               for (int i = 0; i < booksCategories.size(); i++)
-                  handleAddBookToCategory(incomingBook, booksCategories.get(i), addToCategoryButtons.get(i), categoriesActivities.get(i), categoriesNames.get(i), categoriesKeys.get(i));
+               List<BookAddition> bookAdditions = List.of(
+                     new BookAddition(instance.getCurrentlyReadingBooks(), addToCurrentlyReadingButton, CURRENTLY_READING_BOOKS_CATEGORY, CURRENTLY_READING_BOOKS_KEY, CurrentlyReadingActivity.class),
+                     new BookAddition(instance.getAlreadyReadBooks(), addToAlreadyReadButton, ALREADY_READ_BOOKS_CATEGORY, ALREADY_READ_BOOKS_KEY, AlreadyReadActivity.class),
+                     new BookAddition(instance.getWishListBooks(), addToWishListButton, WISH_LIST_BOOKS_CATEGORY, WISH_LIST_BOOKS_KEY, WishListActivity.class),
+                     new BookAddition(instance.getFavoriteBooks(), addToFavoritesButton, FAVORITE_BOOKS_CATEGORY, FAVORITE_BOOKS_KEY, FavoriteBooksActivity.class)
+               );
+               for (int i = 0; i < bookAdditions.size(); i++) handleAddBookToCategory(incomingBook, bookAdditions.get(i));
             }
          }
       }
@@ -75,14 +76,14 @@ public class BookActivity extends AppCompatActivity {
       itemBookLongDescriptionTextView.setText(book.getLongDescription());
    }
 
-   private void handleAddBookToCategory(Book incomingBook, List<Book> booksCategory, Button addToCategoryButton, Class<? extends AppCompatActivity> categoryActivity, String categoryName, String categoryKey) {
-      if (bookExistsInCategory(incomingBook, booksCategory)) {
-         addToCategoryButton.setEnabled(false);
+   private void handleAddBookToCategory(Book incomingBook, BookAddition bookAddition) {
+      if (bookExistsInCategory(incomingBook, bookAddition.getBooksCategory())) {
+         bookAddition.getAddToCategoryButton().setEnabled(false);
       } else {
-         addToCategoryButton.setOnClickListener(view -> {
-            if (BookUtils.getInstance(BookActivity.this).addToCategory(incomingBook, booksCategory, categoryKey)) {
-               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to " + categoryName, Toast.LENGTH_SHORT).show();
-               startActivity(new Intent(BookActivity.this, categoryActivity));
+         bookAddition.getAddToCategoryButton().setOnClickListener(view -> {
+            if (BookUtils.getInstance(BookActivity.this).addToCategory(incomingBook, bookAddition.getBooksCategory(), bookAddition.getCategoryKey())) {
+               Toast.makeText(BookActivity.this, "Book " + incomingBook.getTitle() + " added to " + bookAddition.getCategoryName(), Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(BookActivity.this, bookAddition.getCategoryActivity()));
             } else {
                Toast.makeText(BookActivity.this, ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
             }

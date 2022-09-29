@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionManager;
@@ -28,6 +27,7 @@ import com.endava.library.activity.CurrentlyReadingActivity;
 import com.endava.library.activity.FavoriteBooksActivity;
 import com.endava.library.activity.WishListActivity;
 import com.endava.library.model.Book;
+import com.endava.library.model.BookRemoval;
 import com.endava.library.utils.BookUtils;
 
 import java.util.ArrayList;
@@ -71,12 +71,19 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
       viewHolder.arrowDownButton.setVisibility(books.get(position).getExpanded() ? View.GONE : View.VISIBLE);
 
       if (books.get(position).getExpanded()) {
+         BookUtils instance = BookUtils.getInstance(context);
+         List<BookRemoval> bookRemovals = List.of(
+               new BookRemoval(instance.getCurrentlyReadingBooks(), CURRENTLY_READING_BOOKS_CATEGORY, CURRENTLY_READING_BOOKS_KEY, CurrentlyReadingActivity.class),
+               new BookRemoval(instance.getAlreadyReadBooks(), ALREADY_READ_BOOKS_CATEGORY, ALREADY_READ_BOOKS_KEY, AlreadyReadActivity.class),
+               new BookRemoval(instance.getWishListBooks(), WISH_LIST_BOOKS_CATEGORY, WISH_LIST_BOOKS_KEY, WishListActivity.class),
+               new BookRemoval(instance.getFavoriteBooks(), FAVORITE_BOOKS_CATEGORY, FAVORITE_BOOKS_KEY, FavoriteBooksActivity.class)
+         );
          switch (parentActivity) {
             case ALL_BOOKS_KEY: viewHolder.deleteBookButton.setVisibility(View.GONE); break;
-            case CURRENTLY_READING_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getCurrentlyReadingBooks(), CURRENTLY_READING_BOOKS_CATEGORY, CURRENTLY_READING_BOOKS_KEY, CurrentlyReadingActivity.class); break;
-            case ALREADY_READ_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getAlreadyReadBooks(), ALREADY_READ_BOOKS_CATEGORY, ALREADY_READ_BOOKS_KEY, AlreadyReadActivity.class); break;
-            case WISH_LIST_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getWishListBooks(), WISH_LIST_BOOKS_CATEGORY, WISH_LIST_BOOKS_KEY, WishListActivity.class); break;
-            case FAVORITE_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), BookUtils.getInstance(context).getFavoriteBooks(), FAVORITE_BOOKS_CATEGORY, FAVORITE_BOOKS_KEY, FavoriteBooksActivity.class); break;
+            case CURRENTLY_READING_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), bookRemovals.get(0)); break;
+            case ALREADY_READ_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), bookRemovals.get(1)); break;
+            case WISH_LIST_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), bookRemovals.get(2)); break;
+            case FAVORITE_BOOKS_KEY: handleRemoveBookFromCategory(viewHolder, books.get(position), bookRemovals.get(3)); break;
             default: Toast.makeText(context, "Invalid category", Toast.LENGTH_SHORT).show();
          }
       }
@@ -87,19 +94,19 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
       return books.size();
    }
 
-   private void handleRemoveBookFromCategory(@NonNull ViewHolder viewHolder, Book book, List<Book> booksCategory, String categoryName, String categoryKey, Class<? extends AppCompatActivity> categoryActivity) {
+   private void handleRemoveBookFromCategory(@NonNull ViewHolder viewHolder, Book currentBook, BookRemoval bookRemoval) {
       viewHolder.deleteBookButton.setVisibility(View.VISIBLE);
       viewHolder.deleteBookButton.setOnClickListener(view -> {
          AlertDialog.Builder builder = new AlertDialog.Builder(context);
-         builder.setMessage("Are you sure you want to delete " + book.getTitle() + " from " + categoryName + "?");
+         builder.setMessage("Are you sure you want to delete " + currentBook.getTitle() + " from " + bookRemoval.getCategoryName() + "?");
          builder.setPositiveButton("Yes", (dialogInterface, which) -> {
-            if (BookUtils.getInstance(context).removeFromCategory(book, booksCategory, categoryKey)) {
-               Toast.makeText(context, book.getTitle() + " removed from " + categoryName, Toast.LENGTH_SHORT).show();
-               Intent intent = new Intent(context, categoryActivity);
+            if (BookUtils.getInstance(context).removeFromCategory(currentBook, bookRemoval.getBooksCategory(), bookRemoval.getCategoryKey())) {
+               Toast.makeText(context, currentBook.getTitle() + " removed from " + bookRemoval.getCategoryName(), Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(context, bookRemoval.getCategoryActivity());
                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                context.startActivity(intent);
-               booksCategory.remove(book);
-               handleRemoveBookFromCategory(viewHolder, book, booksCategory, categoryName, categoryKey, categoryActivity);
+               bookRemoval.getBooksCategory().remove(currentBook);
+               handleRemoveBookFromCategory(viewHolder, currentBook, bookRemoval);
             }
          });
          builder.setNegativeButton("No", (dialogInterface, which) -> Toast.makeText(context, "Dialog dismissed", Toast.LENGTH_SHORT).show());
