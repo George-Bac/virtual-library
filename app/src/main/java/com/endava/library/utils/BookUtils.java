@@ -88,7 +88,7 @@ public class BookUtils {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove(key);
             editor.putString(key, new Gson().toJson(books));
-            editor.commit();
+            editor.apply();
             return true;
          }
       }
@@ -102,7 +102,7 @@ public class BookUtils {
                if (books.remove(book)) {
                   SharedPreferences.Editor editor = sharedPreferences.edit();
                   editor.putString(key, new Gson().toJson(books));
-                  editor.commit();
+                  editor.apply();
                   return true;
                }
             }

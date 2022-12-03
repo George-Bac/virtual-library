@@ -49,7 +49,7 @@ public class BookActivity extends AppCompatActivity {
                      new BookAddition(instance.getWishListBooks(), addToWishListButton, WISH_LIST_BOOKS_CATEGORY, WISH_LIST_BOOKS_KEY, WishListActivity.class),
                      new BookAddition(instance.getFavoriteBooks(), addToFavoritesButton, FAVORITE_BOOKS_CATEGORY, FAVORITE_BOOKS_KEY, FavoriteBooksActivity.class)
                );
-               for (int i = 0; i < bookAdditions.size(); i++) handleAddBookToCategory(incomingBook, bookAdditions.get(i));
+               for(BookAddition bookAddition : bookAdditions) handleAddBookToCategory(incomingBook, bookAddition);
             }
          }
       }
